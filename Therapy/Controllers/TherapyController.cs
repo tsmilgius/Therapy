@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Therapy.Models;
 
@@ -18,29 +17,30 @@ namespace Therapy.Controllers
         public TherapyController(TherapyContext context)
         {
             _context = context;
-            if (_context.TherapyEntity.Count() == 0)
+            if (_context.Solution.Count() == 0)
             {
-                _context.TherapyEntity.Add(new TherapyEntity {StartDate = new DateTime(2018, 11, 06, 19, 53, 00), DwellCount = 4, DwellDuration = 128, TherapyDuration = 630});
+                //_context.Programme.Add(new Programme {StartDate = new DateTime(2018, 11, 06, 19, 53, 00), DwellCount = 4, DwellDuration = 128, TherapyDuration = 630});
+                _context.Solution.Add(new Bag { Id = 1, Type = "Glucose", Concentration = 1.36f });
                 _context.SaveChanges();
             }
         }
 
         [HttpGet]
-        public ActionResult<List<TherapyEntity>> GetAll()
+        public ActionResult<List<Bag>> GetAll()
         {
-            return _context.TherapyEntity.ToList();
+            return _context.Solution.ToList();
         }
 
-        [HttpGet("{id}", Name = "GetTodo")]
-        public ActionResult<TherapyEntity> GetById(long id)
+      /* [HttpGet("{id}", Name = "GetTodo")]
+        public ActionResult<Programme> GetById(long id)
         {
-            var item = _context.TherapyEntity.Find(id);
+            var item = _context.Programme.Find(id);
             if (item == null)
             {
                 return NotFound();
             }
             return item;
-        }
+        }*/
 
     }
 }

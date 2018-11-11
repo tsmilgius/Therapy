@@ -28,7 +28,8 @@ namespace Therapy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TherapyContext>(opt =>
-                opt.UseInMemoryDatabase("TherapyEntity"));
+                opt.UseSqlServer(Configuration
+                .GetConnectionString("TherapyConnection")));
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
